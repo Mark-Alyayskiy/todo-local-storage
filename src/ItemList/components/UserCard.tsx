@@ -8,17 +8,19 @@ type Props = {
 };
 
 const UserCard: FC<Props> = ({ user }) => {
-  const { usersContext, setUsersContext } = useContext(UserContext);
+  const { globalContext, setGlobalContext } = useContext(UserContext);
   return (
     <Wrapper
       onClick={() =>
-        setUsersContext({ ...usersContext, currentUserId: user.id })
+        setGlobalContext({ ...globalContext, currentUserId: user.id })
       }
     >
-      <Text>{user.name}</Text>
+      <Text>
+        {user.name.length > 10 ? user.name.substring(0, 10) + "..." : user.name}
+      </Text>
       <Text>{user.age}</Text>
       <Text>{user.subscription}</Text>
-      <Text>{user.employment}</Text>
+      <Text>{user.employment ? "Employed" : "Unemployed"}</Text>
     </Wrapper>
   );
 };

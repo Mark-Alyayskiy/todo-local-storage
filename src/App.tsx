@@ -4,16 +4,20 @@ import MainLayout from "./MainLayout";
 import { UserContext } from "./context/UsersContext";
 
 function App() {
-  const [usersContext, setUsersContext] = useState({
+  const [globalContext, setGlobalContext] = useState({
     users: [],
     currentUserId: 0,
+    darkTheme: true,
+    user: {
+      subscription: "Subscribed",
+    },
   });
   return (
     <>
       <UserContext.Provider
         value={{
-          usersContext,
-          setUsersContext,
+          globalContext,
+          setGlobalContext,
         }}
       >
         <MainLayout />

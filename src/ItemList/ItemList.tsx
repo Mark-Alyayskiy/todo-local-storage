@@ -1,46 +1,26 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import UserCard from "./components";
-import { Header, ListWrapper, Text } from "./styled";
+import { Header, ListWrapper, Text, ScrollWrapper } from "./styled";
 import { UserContext } from "../context/UsersContext";
+import { TypeUser } from "../types/types";
 
 const ItemList = () => {
-  const [users, setUsers] = useState(
-    JSON.parse(localStorage.getItem("tasks")) || []
-  );
-
-  const { usersContext } = useContext(UserContext);
-
-  console.log("usersContext", usersContext);
-
-  useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(users));
-  }, [users]);
-
-  const addTask = () => {
-    const newTask = {
-      id: Math.random(),
-      name: "sfsf",
-      age: 12,
-      subscription: "Subscribed",
-      employment: "Employed",
-    };
-    setUsers([...users, newTask]);
-  };
-
-  // console.log("users", users);
+  const { globalContext } = useContext(UserContext);
 
   return (
-    <ListWrapper>
+    <ListWrapper darkTheme={globalContext.darkTheme}>
       <Header>
         <Text>Name</Text>
         <Text>Age</Text>
         <Text>Subscription</Text>
         <Text>Employment</Text>
       </Header>
-      {usersContext.users &&
-        usersContext.users.map((user: any) => {
-          return <UserCard user={user} />;
-        })}
+      <ScrollWrapper>
+        {globalContext.users &&
+          globalContext.users.map((user: TypeUser, idx: number) => {
+            return <UserCard key={idx} user={user} />;
+          })}
+      </ScrollWrapper>
     </ListWrapper>
   );
 };

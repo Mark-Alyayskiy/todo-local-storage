@@ -1,23 +1,25 @@
-import { FC, useEffect, useState } from "react";
-import { Slider, SwitchWrapper, Input } from "./styled";
+import { FC, useContext, useEffect, useState } from "react";
+import { Slider, SwitchWrapper, Input, Label } from "./styled";
+import { UserContext } from "../../../context/UsersContext";
+import { StyleSheetManager } from "styled-components";
 
-type Props = {
-  checked: boolean;
-};
-
-const Switch: FC<Props> = ({ checked = false }) => {
+const Switch: FC = () => {
+  const checked = false;
   const [toggle, setToggle] = useState(checked);
+  const { globalContext, setGlobalContext } = useContext(UserContext);
 
   useEffect(() => {
-    console.log("first");
+    setGlobalContext({ ...globalContext, darkTheme: !toggle });
   }, [toggle]);
-  console.log("toggle", toggle);
 
   return (
-    <SwitchWrapper color="#fff" toggle={toggle}>
-      <Input toggle={toggle} type="checkbox" defaultChecked={toggle} />
-      <Slider {...{ toggle }} onClick={() => setToggle(!toggle)} />
-    </SwitchWrapper>
+    <StyleSheetManager shouldForwardProp={(prop) => !["toggle"].includes(prop)}>
+      <SwitchWrapper color="#fff" toggle={toggle}>
+        <Input toggle={toggle} type="checkbox" defaultChecked={toggle} />
+        <Slider {...{ toggle }} onClick={() => setToggle(!toggle)} />
+        <Label>Mode</Label>
+      </SwitchWrapper>
+    </StyleSheetManager>
   );
 };
 
