@@ -9,12 +9,25 @@ type Props = {
 
 const UserCard: FC<Props> = ({ user }) => {
   const { globalContext, setGlobalContext } = useContext(UserContext);
+
+  const isSelected = globalContext.usersId.includes(user.id);
+
+  const toggleUserSelection = () => {
+    let updatedUsersId: number[];
+    if (isSelected) {
+      updatedUsersId = globalContext.usersId.filter((id) => id !== user.id);
+    } else {
+      updatedUsersId = [...globalContext.usersId, user.id];
+    }
+
+    setGlobalContext((prevGlobalContext) => ({
+      ...prevGlobalContext,
+      usersId: updatedUsersId,
+    }));
+  };
+
   return (
-    <Wrapper
-      onClick={() =>
-        setGlobalContext({ ...globalContext, currentUserId: user.id })
-      }
-    >
+    <Wrapper isSelected={!!isSelected} onClick={toggleUserSelection}>
       <Text>
         {user.name.length > 10 ? user.name.substring(0, 10) + "..." : user.name}
       </Text>

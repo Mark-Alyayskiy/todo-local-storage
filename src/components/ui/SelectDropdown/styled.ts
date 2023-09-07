@@ -16,8 +16,7 @@ export const Main = styled.div`
 export const DropDownContainer = styled.div`
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
   position: relative;
-  width: 10.5em;
-  margin: 0 auto;
+  width: 100%;
 `;
 
 export const DropDownHeader = styled.div<Props>`
@@ -36,7 +35,17 @@ export const DropDownHeader = styled.div<Props>`
   padding-bottom: 7px;
 `;
 
-export const DropDownListContainer = styled.div``;
+export const DropDownListContainer = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  border: 1px solid ${lightGrey};
+  border-radius: 0 0 5px 5px;
+  border-top: none;
+  background-color: ${grey};
+`;
 
 export const DropDownList = styled.ul`
   padding: 0;
@@ -67,7 +76,7 @@ export const Button = styled.button`
   height: 30px;
   width: 30px;
   top: 0;
-  right: -30px;
+  right: 0;
   z-index: 1;
   border-radius: 0 5px 5px 0;
   cursor: pointer;

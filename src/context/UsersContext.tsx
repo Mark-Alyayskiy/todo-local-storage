@@ -1,17 +1,18 @@
 import { createContext } from "react";
 import { TypeUser } from "../types/types";
 
-type TypeGlobalContextUsers = {
+export type TypeGlobalContextUsers = {
   globalContext: {
     users: TypeUser[];
-    currentUserId: number;
+    usersId: number[];
     darkTheme: boolean;
     user: TypeUser;
   };
   setGlobalContext: React.Dispatch<
     React.SetStateAction<{
       users: TypeUser[];
-      currentUserId: number;
+      usersId: number[];
+      darkTheme: boolean;
       user: TypeUser;
     }>
   >;
@@ -20,7 +21,7 @@ type TypeGlobalContextUsers = {
 export const UserContext = createContext<TypeGlobalContextUsers>({
   globalContext: {
     users: [],
-    currentUserId: 0,
+    usersId: [],
     darkTheme: true,
     user: {
       id: 0,

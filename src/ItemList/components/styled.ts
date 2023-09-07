@@ -1,13 +1,17 @@
 import styled from "styled-components";
-import { grey, small } from "../../styled";
+import { grey, lightGrey, small } from "../../styled";
 
-export const Wrapper = styled.button`
+type Props = {
+  isSelected: boolean;
+};
+
+export const Wrapper = styled.button<Props>`
   width: 100%;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
   border: none;
-  background-color: ${grey};
+  background-color: ${(props) => (props.isSelected ? grey : lightGrey)};
   padding: 5px;
   font-size: ${small};
 `;

@@ -49,7 +49,10 @@ const UserControl: FC<Props> = ({
       <Checkbox label="Employed" />
       <Border />
       <Switch />
-      <Button onClick={Delete} label="Delete" />
+      <Button
+        onClick={Delete}
+        label={globalContext.usersId.length > 1 ? "Delete multiple" : "Delete"}
+      />
     </Wrapper>
   );
 };

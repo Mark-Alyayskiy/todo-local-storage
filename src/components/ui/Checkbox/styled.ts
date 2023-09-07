@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { green, grey, small } from "../../../styled";
+import { green, small } from "../../../styled";
 
 type Props = {
   darkTheme: boolean;
@@ -14,7 +14,7 @@ export const Label = styled.label<Props>`
   font-size: ${small};
   display: flex;
   gap: 10px;
-  /* color: ${(props) => (props.darkTheme ? grey : grey)}; */
+  align-items: center;
 
   &:hover {
     &:before {

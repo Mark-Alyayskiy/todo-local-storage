@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import ItemList from "../ItemList";
 import UserControl from "../UserControl";
-import { Wrapper } from "./styled";
+import { Wrapper, Container } from "./styled";
 import { UserContext } from "../context/UsersContext";
 import { TypeUser } from "../types/types";
 
 const MainLayout = () => {
   const [name, setName] = useState<string>("");
-  const [age, setAge] = useState<number>();
+  const [age, setAge] = useState<number | undefined>();
   const [users, setUsers] = useState<TypeUser[]>(
     JSON.parse(localStorage.getItem("tasks") || "[]")
   );
@@ -15,16 +15,9 @@ const MainLayout = () => {
 
   const dropdownOptions = ["Subscribed", "Not subscribed", "Other"];
 
-  console.log("globalContext", globalContext);
-
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(users));
     setGlobalContext({ ...globalContext, users: users });
-    // setGlobalContext({
-    //   ...globalContext,
-    //   ...globalContext.users,
-    //   users: users,
-    // });
   }, [users]);
 
   const InsertUser = () => {
@@ -46,7 +39,7 @@ const MainLayout = () => {
 
   const Delete = () => {
     const filteredUsers = globalContext.users.filter(
-      (user: TypeUser) => user.id !== globalContext.currentUserId
+      (user: TypeUser) => !globalContext.usersId.includes(user.id)
     );
     setGlobalContext((prevGlobalContext) => ({
       ...prevGlobalContext,
@@ -54,13 +47,12 @@ const MainLayout = () => {
     }));
     setUsers(filteredUsers);
   };
-
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
 
   const onAgeInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAge(e.target.value);
+    setAge(+e.target.value);
   };
 
   const decreaseAge = () => {
@@ -78,19 +70,21 @@ const MainLayout = () => {
   };
 
   return (
-    <Wrapper>
-      <UserControl
-        decreaseAge={decreaseAge}
-        addAge={addAge}
-        onAgeInputChange={onAgeInputChange}
-        dropdownOptions={dropdownOptions}
-        nameValue={name}
-        ageValue={age}
-        onInputChange={onInputChange}
-        InsertUser={InsertUser}
-        Delete={Delete}
-      />
-      <ItemList />
+    <Wrapper darkTheme={globalContext.darkTheme}>
+      <Container>
+        <UserControl
+          decreaseAge={decreaseAge}
+          addAge={addAge}
+          onAgeInputChange={onAgeInputChange}
+          dropdownOptions={dropdownOptions}
+          nameValue={name}
+          ageValue={age}
+          onInputChange={onInputChange}
+          InsertUser={InsertUser}
+          Delete={Delete}
+        />
+        <ItemList />
+      </Container>
     </Wrapper>
   );
 };

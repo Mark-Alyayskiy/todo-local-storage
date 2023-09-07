@@ -30,6 +30,6 @@ export const Wrapper = styled.div<Props>`
 export const Border = styled.div`
   width: 100%;
   border-top: 1px solid ${lightGrey};
-  padding-top: 10px;
+  margin-top: 10px;
   padding-bottom: 10px;
 `;

@@ -1,15 +1,21 @@
 import { useState } from "react";
 import "./App.css";
 import MainLayout from "./MainLayout";
-import { UserContext } from "./context/UsersContext";
+import { TypeGlobalContextUsers, UserContext } from "./context/UsersContext";
 
 function App() {
-  const [globalContext, setGlobalContext] = useState({
+  const [globalContext, setGlobalContext] = useState<
+    TypeGlobalContextUsers["globalContext"]
+  >({
     users: [],
-    currentUserId: 0,
-    darkTheme: true,
+    usersId: [],
+    darkTheme: true, // Добавьте darkTheme с соответствующим значением
     user: {
+      id: 0,
+      name: "",
+      age: 0,
       subscription: "Subscribed",
+      employment: false,
     },
   });
   return (
