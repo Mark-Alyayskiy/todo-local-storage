@@ -41,7 +41,7 @@ const Input: FC<Props> = ({
           />
           <ButtonsBlock>
             <ButtonUp onClick={addAge}>
-              <Arrow />
+              <Arrow rotationDeg="180" />
             </ButtonUp>
             <ButtonDown onClick={decreaseAge}>
               <Arrow />
